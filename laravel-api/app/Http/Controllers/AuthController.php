@@ -20,6 +20,8 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        error_log($request);
+        error_log('glad this shows up');
         $validator = Validator::make(
             $request->all(),
             [

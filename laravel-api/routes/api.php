@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\IPController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,7 @@ Route::group([
     'middleware' => 'api',
     'namespace' => 'App\Http\Controllers',
 ], function($router) {
-    Route::resource('todos', 'TodoController');
+    // Route::resource('ip', 'IPController');
+    Route::get('open', 'IPController@open');
+    Route::get('close', 'IPController@close');
 });
