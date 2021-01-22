@@ -7,7 +7,10 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use FFI\Exception;
 use Illuminate\Http\Request;
 
-class JwtMiddleware
+use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
+
+
+class JwtMiddleware extends BaseMiddleware
 {
     /**
      * Handle an incoming request.

@@ -34,4 +34,6 @@ Route::group([
     // Route::resource('ip', 'IPController');
     Route::get('open', 'IPController@open');
     Route::get('close', 'IPController@close');
+    // Route::get('users', 'IPController@getUsers');
+    Route::get('users/{id?}', 'IPController@getUsers');
 });
