@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIpTable extends Migration
+class CreateAddressTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateIpTable extends Migration
      */
     public function up()
     {
-        Schema::create('ips', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('label')->unique();
-            $table->string('ip_address')->unique();
+            $table->string('label');
+            $table->string('ip');
             $table->string('comment');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
+        });
+        Schema::table('addresses', function($table) {
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -31,6 +33,6 @@ class CreateIpTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ip');
+        Schema::dropIfExists('addresses');
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\User;
+use App\Models\Address;
+use Illuminate\Support\Facades\Log;
 
 class IPController extends Controller
 {
@@ -20,19 +22,25 @@ class IPController extends Controller
     public function addIP(Request $request)
     {
         error_log("addign ip");
-        error_log($request);
-        // if($id?User::find($id):User::all())
-        // {
-        //     error_log("user with this id exists");
-        //     return "user with this id exists";
-        // }
-        // else
-        // {
-        //     error_log("ERROR");
-        //     return response()->json(['message' => 'ERROR.'])
-        //         ->setStatusCode(Response::HTTP_NOT_FOUND, Response::$statusTexts[Response::HTTP_NOT_FOUND]);
-        // }
-
+        $user_id = $request->user_id;
+        if($user_id?User::find($user_id):User::all())
+        {
+            error_log("user with this id exists");
+            $ip = new Address();
+            $ip->label = $request->label;
+            $ip->ip = $request->ip_address;
+            $ip->comment = $request->comment;
+            $ip->user_id = $request->user_id;
+            $result = $ip->save();
+            return response()->json(['message' => 'Ip address saved'])
+                ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
+        }
+        else
+        {
+            error_log("ERROR");
+            return response()->json(['message' => 'ERROR.'])
+                ->setStatusCode(Response::HTTP_NOT_FOUND, Response::$statusTexts[Response::HTTP_NOT_FOUND]);
+        }
 
     }
 
