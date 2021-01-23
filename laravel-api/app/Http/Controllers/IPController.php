@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Address;
 use Illuminate\Support\Facades\Log;
 
+use Tymon\JWTAuth\Facades\JWTAuth;
+
 class IPController extends Controller
 {
     public function __construct()
@@ -54,12 +56,26 @@ class IPController extends Controller
     }
 
     //get specific user's ip address
-    public function getIP()
+    public function getAllIPByUser(Request $request, $id)
     {
-
+        $header = $request->bearerToken();;
+        JWTAuth::setToken($header);
+        $user_id = JWTAuth::authenticate()->id;
+        if ($id == $user_id) {
+            $useraddresses = Address::all();
+            $c = collect();
+            foreach($useraddresses as $ud) {
+                if($ud->user_id == $id){
+                    $c->add($ud);
+                }
+            }
+            return response()->json([$c])
+                ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
+        } else {
+            return response()->json(['message' => 'You Are not authenticated to view this resource.'])
+                ->setStatusCode(Response::HTTP_UNAUTHORIZED, Response::$statusTexts[Response::HTTP_UNAUTHORIZED]);
+        }
     }
-
-
 
     public function open()
     {

@@ -3,8 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IPController;
-use App\Http\Controllers\ManuController;
-use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,9 +37,6 @@ Route::group([
     // Route::get('users', 'IPController@getUsers');
     Route::get('users/{id?}', 'IPController@getUsers');
 
-    Route::post('addip/{id?}', 'IPController@addIP');
-    
-    Route::get('manu','ManuController@create_data');
-    Route::get('prod','ProductController@index');
-    Route::get('select_manufacturer','ManuController@select_data');
+    Route::post('addip', 'IPController@addIP');
+    Route::get('getAllIP/{id}', 'IPController@getAllIPByUser');
 });
