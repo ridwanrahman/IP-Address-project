@@ -23,12 +23,21 @@ class IPController extends Controller
     {
         error_log("addign ip");
         $user_id = $request->user_id;
+
+        if($ip_validation = $request->validate([
+            'ip' => 'required|ip'
+        ]))
+        {
+            error_log("ip address is fine");
+        }
+        
+
         if($user_id?User::find($user_id):User::all())
         {
             error_log("user with this id exists");
             $ip = new Address();
             $ip->label = $request->label;
-            $ip->ip = $request->ip_address;
+            $ip->ip = $request->ip;
             $ip->comment = $request->comment;
             $ip->user_id = $request->user_id;
             $result = $ip->save();
