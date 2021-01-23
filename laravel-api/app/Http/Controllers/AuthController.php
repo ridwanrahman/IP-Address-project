@@ -20,7 +20,6 @@ class AuthController extends Controller
 
     }//end __construct()
 
-
     public function login(Request $request)
     {
         error_log($request);
@@ -58,7 +57,6 @@ class AuthController extends Controller
 
     }//end login()
 
-
     public function register(Request $request)
     {
         $validator = Validator::make(
@@ -88,7 +86,6 @@ class AuthController extends Controller
 
     }//end register()
 
-
     public function logout()
     {
         $this->guard()->logout();
@@ -97,20 +94,17 @@ class AuthController extends Controller
 
     }//end logout()
 
-
     public function profile()
     {
         return response()->json($this->guard()->user());
 
     }//end profile()
 
-
     public function refresh()
     {
         return $this->respondWithToken($this->guard()->refresh());
 
     }//end refresh()
-
 
     protected function respondWithToken($token)
     {
@@ -119,11 +113,12 @@ class AuthController extends Controller
                 'token'          => $token,
                 'token_type'     => 'bearer',
                 'token_validity' => ($this->guard()->factory()->getTTL() * 60),
+                'id' => $this->guard()->user()->id,
+                'name' => $this->guard()->user()->name,
+                'email' => $this->guard()->user()->email
             ]
         );
-
     }//end respondWithToken()
-
 
     protected function guard()
     {
