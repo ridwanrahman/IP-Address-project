@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Audit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -21,7 +24,6 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         error_log($request);
-        error_log('glad this shows up');
         $validator = Validator::make(
             $request->all(),
             [
@@ -34,13 +36,23 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $token_validity = (1);
+        $token_validity = (24);
 
         $this->guard()->factory()->setTTL($token_validity);
 
         if (!$token = $this->guard()->attempt($validator->validated())) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
+        JWTAuth::setToken($token);
+        $user_name = JWTAuth::authenticate()->name;
+        $user_id = JWTAuth::authenticate()->id;
+        error_log($user_name);
+        $audit = new Audit();
+        $ldate = date('Y-m-d H:i:s');
+        error_log($ldate);
+        $audit->text = "$user_name has logged in at $ldate";
+        $audit->user_id = $user_id;
+        $result = $audit->save();
 
         return $this->respondWithToken($token);
 
