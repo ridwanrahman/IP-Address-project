@@ -40,7 +40,7 @@ class AuthController extends Controller
         $this->guard()->factory()->setTTL($token_validity);
 
         if (!$token = $this->guard()->attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Email or password doesn\'t exist'], 401);
         }
         JWTAuth::setToken($token);
         $user_name = JWTAuth::authenticate()->name;
