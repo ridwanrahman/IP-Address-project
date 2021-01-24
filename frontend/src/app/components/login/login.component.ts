@@ -26,8 +26,6 @@ export class LoginComponent implements OnInit {
   }
 
   handleError(error) {
-    console.log("this is called");
-    console.log(error);
     if(error['status'] != 200){
       this.error = "Email or password doesn't exist";
     }

@@ -1,1 +1,69 @@
-<p>register works!</p>
+<div class="mt-4 col-8 offset-2">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-body">
+                <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" 
+                                  class="form-control" 
+                                  id="name" 
+                                  name="name" 
+                                  placeholder="Enter full name" 
+                                  [(ngModel)]="form.name"
+                                required>
+                    </div>
+                    <div class="alert alert-danger" [hidden]="!error.name">
+                        {{error.name}}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" 
+                                  class="form-control" 
+                                  id="email"
+                                  name="email" 
+                                  [(ngModel)]="form.email"
+                                  placeholder="Email Address" required>
+                    </div>
+                    <div class="alert alert-danger" [hidden]="!error.email">
+                        {{error.email}}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" 
+                                  class="form-control" 
+                                  id="password"
+                                  name="password" 
+                                  [(ngModel)]="form.password"
+                                  placeholder="Password" required>
+                    </div>
+                    <div class="alert alert-danger" [hidden]="!error.password">
+                        {{error.password}}
+                    </div>
+                      <div class="mb-3">
+                        <label for="password_confirmation" class="form-label">Rewrite Password</label>
+                        <input type="password" 
+                                  class="form-control" 
+                                  id="password_confirmation"
+                                  name="password_confirmation" 
+                                  [(ngModel)]="form.password_confirmation"
+                                  placeholder="Password" required>
+                      </div>
+                    <div class="alert alert-danger" [hidden]="!error.password_confirmation">
+                        {{error.password_confirmation}}
+                    </div>
+                      <button type="submit" 
+                            class="btn btn-primary"
+                            [disabled]="!registerForm.valid"
+                            >
+                            Register
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
