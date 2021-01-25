@@ -14,7 +14,7 @@ export class UserHandlerService {
   }
 
   getUserId() {
-    return localStorage.getItem('token');
+    return localStorage.getItem('id');
   }
   getUserEmail() {
     return localStorage.getItem('email');

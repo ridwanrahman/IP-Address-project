@@ -1,9 +1,14 @@
 <div>
     Welcome {{userName}}
     <div class="mt-4 col-8 offset-2">
-    
+    These are your currently saved IP addresses:
         <ul class="list-group">
-            <li class="list-group-item">Cras justo odio</li>
+            <li 
+                class="list-group-item" 
+                *ngFor="let ip of ipData">IP: {{ip.ip}} Label: {{ip.label}} Comment: {{ip.comment}}
+                <a class="edit-button" href=#>Edit</a>
+            </li>
+            
           </ul>
     </div>
     
