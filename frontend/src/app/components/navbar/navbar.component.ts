@@ -18,7 +18,10 @@ export class NavbarComponent implements OnInit {
     private Auth: AuthService,
     private router:Router,
     private token:TokenService
-  ) { }
+  ) { 
+  }
+
+
 
   logout(event:MouseEvent) {
     event.preventDefault();

@@ -24,7 +24,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private http:HttpClient,
-    private router: Router) { }
+    private router: Router) {
+    }
 
   onSubmit() {
     console.log("something");

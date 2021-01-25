@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { TokenService } from 'src/app/Services/token.service';
+import { UserHandlerService } from 'src/app/Services/user-handler.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
     private http:HttpClient,
     private Token:TokenService,
     private router: Router,
-    private Auth:AuthService) { }
+    private Auth:AuthService,
+    private userHandler:UserHandlerService) { }
 
   onSubmit(){
     console.log("something");
@@ -33,6 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   handleResponse(data){
+    this.userHandler.handle(data);
     this.Token.handle(data.token);
     this.Auth.changeAuthStatus(true);
     this.router.navigateByUrl('/dashboard');
