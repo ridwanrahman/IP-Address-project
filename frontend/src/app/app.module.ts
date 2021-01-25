@@ -10,6 +10,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddipComponent } from './components/addip/addip.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EditipComponent } from './components/editip/editip.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    AddipComponent
+    AddipComponent,
+    EditipComponent
   ],
   imports: [
     BrowserModule,

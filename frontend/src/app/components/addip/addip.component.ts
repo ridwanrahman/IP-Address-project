@@ -3,13 +3,18 @@ import { Component, OnInit } from '@angular/core';
 import { TokenService } from 'src/app/Services/token.service';
 import { UserHandlerService } from 'src/app/Services/user-handler.service';
 
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-addip',
   templateUrl: './addip.component.html',
-  styleUrls: ['./addip.component.css']
+  styleUrls: ['./addip.component.css'],
+  providers: [NgbModalConfig, NgbModal]
 })
 export class AddipComponent implements OnInit {
 
+  closeResult = '';
+  public response = "";
   public form = {
     label: null,
     ip: null,
@@ -25,8 +30,21 @@ export class AddipComponent implements OnInit {
   constructor(
     private http:HttpClient,
     private userhandler:UserHandlerService,
-    private tokenService:TokenService
-  ) { }
+    private tokenService:TokenService,
+    private modalService: NgbModal,
+    config: NgbModalConfig
+  ) {
+    config.backdrop = 'static';
+    config.keyboard = false;
+   }
+
+  // open(content) {
+  //   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+  //     this.closeResult = `Closed with: ${result}`;
+  //   }, (reason) => {
+  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  //   });
+  // }
 
   onSubmit() {
     console.log("herere");
@@ -41,8 +59,14 @@ export class AddipComponent implements OnInit {
       error => this.handleError(error)
     );
   }
+  open(content) {
+    this.modalService.open(content);
+  }
   handleResponse(data){
     console.log(data);
+    // var content="asdfasfasfasf";
+    // this.open(content);
+    
   }
   handleError(error){
     console.log(error.error.errors);

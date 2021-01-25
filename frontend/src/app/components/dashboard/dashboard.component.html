@@ -1,14 +1,30 @@
 <div>
     Welcome {{userName}}
-    <div class="mt-4 col-8 offset-2">
-    These are your currently saved IP addresses:
-        <ul class="list-group">
-            <li 
-                class="list-group-item" 
-                *ngFor="let ip of ipData">IP: {{ip.ip}} Label: {{ip.label}} Comment: {{ip.comment}}
-                <a class="edit-button" href=#>Edit</a>
-            </li>
-          </ul>
+    <div>
+        <div class="mt-4 col-8 offset-2 divItem">
+            These are your currently saved IP addresses:
+                <ul class="list-group ulItems">
+                    <li 
+                        class="list-group-item" 
+                        *ngFor="let ip of ipData">IP: {{ip.ip}} Label: {{ip.label}} Comment: {{ip.comment}}
+                        <a class="edit-button" href=#>Edit</a>
+                    </li>
+                  </ul>
+            </div>
+            <a href="add-ip">Add new IP</a>
     </div>
-    <a href="add-ip">Add new IP</a>
+
+    <div>
+        <div class="mt-4 col-8 offset-2 divItem">
+            These are your currently saved Audits:
+                <ul class="list-group ulItems">
+                    <li 
+                        class="list-group-item" 
+                        *ngFor="let audit of auditData">{{audit.text}}
+                    </li>
+                  </ul>
+            </div>
+            <a href="add-ip">Add new IP</a>
+
+    </div>
 </div>

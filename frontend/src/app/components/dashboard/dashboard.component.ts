@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   public userEmail = "";
   public token = "";
   public ipData = [];
+  public auditData = [];
 
   constructor(
     private http:HttpClient,
@@ -29,10 +30,30 @@ export class DashboardComponent implements OnInit {
     this.userEmail = this.userHandler.getUserEmail();
     this.token = this.tokenService.get();
     console.log("dashboard ends");
-    this.getData();
+    this.getIPData();
+    this.getAuditData();
   }
 
-  getData(){
+  getAuditData() {
+    this.http.get('http://127.0.0.1:8000/api/getUserAudits',{
+      headers: {
+        "Authorization": 'Bearer '+this.token
+      }
+    }).subscribe(
+      data => this.handleAuditResponse(data),
+      error => console.log(error)
+    );
+  }
+
+  handleAuditResponse(data) {
+    console.log(data);
+    this.auditData = data[0];
+  }
+  handleAuditError(error) {
+
+  }
+
+  getIPData(){
     this.http.get('http://127.0.0.1:8000/api/getAllIP/'+this.userID,{
       headers: {
         "Authorization": 'Bearer '+this.token
@@ -44,7 +65,7 @@ export class DashboardComponent implements OnInit {
   }
 
   handleResponse(data){
-    console.log(data);
+    // console.log(data);
     this.ipData = data[0];
   }
 

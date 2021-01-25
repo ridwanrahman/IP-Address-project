@@ -86,5 +86,27 @@ class IPController extends Controller
         }
     }
 
+    public function getIPRecordByID(Request $request)
+    {
+
+    }
+
+    public function getAuditByUserID(Request $request)
+    {
+        $header = $request->bearerToken();;
+        JWTAuth::setToken($header);
+        $user_id = JWTAuth::authenticate()->id;
+        $c = collect();
+        $userAudits = Audit::all();
+        foreach($userAudits as $ud) {
+            if($ud->user_id == $user_id) {
+                $c->add($ud);
+            }
+        }
+        error_log($c);
+        return response()->json([$c])
+                ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
+    }
+
 
 }
