@@ -1,0 +1,49 @@
+<div class="mt-4 col-8 offset-2">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-body">
+                <form #ipForm=ngForm (ngSubmit)="onSubmit()">
+                    <div class="mb-3">
+                        <label for="label" class="form-label">Label</label>
+                        <input type="text" 
+                                  class="form-control" 
+                                  id="label" 
+                                  name="label" 
+                                  placeholder="Enter name for your ip" 
+                                  [(ngModel)]="form.label"
+                                  aria-describedby="emailHelp" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="ip" class="form-label">IP</label>
+                        <input type="text" 
+                                  class="form-control" 
+                                  id="ip" 
+                                  name="ip" 
+                                  placeholder="Enter valid ip" 
+                                  [(ngModel)]="form.ip"
+                                  aria-describedby="emailHelp" required>
+                      </div>
+                      <div class="alert alert-danger" [hidden]="!error.ip">
+                        {{error.ip}}
+                        </div>
+                      <div class="mb-3">
+                        <label for="comment" class="form-label">Comment</label>
+                        <input type="text" 
+                                  class="form-control" 
+                                  id="comment" 
+                                  name="comment" 
+                                  placeholder="Enter a comment for your ip" 
+                                  [(ngModel)]="form.comment"
+                                  aria-describedby="emailHelp" required>
+                      </div>
+                      <button type="submit" 
+                            class="btn btn-primary"
+                            [disabled]="!ipForm.valid"
+                            >
+                            Add new IP
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

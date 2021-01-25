@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AddipComponent } from './components/addip/addip.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    AddipComponent
   ],
   imports: [
     BrowserModule,
