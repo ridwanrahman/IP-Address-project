@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/Services/auth.service';
 import { TokenService } from 'src/app/Services/token.service';
 
 @Component({
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private http:HttpClient,
     private Token:TokenService,
-    private router: Router) { }
+    private router: Router,
+    private Auth:AuthService) { }
 
   onSubmit(){
     console.log("something");
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
 
   handleResponse(data){
     this.Token.handle(data.token);
+    this.Auth.changeAuthStatus(true);
     this.router.navigateByUrl('/dashboard');
   }
 

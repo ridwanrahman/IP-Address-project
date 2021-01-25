@@ -3,8 +3,9 @@
       <a class="navbar-brand" routerLink="">Navbar</a>
       <form class="d-flex">
         <div>
-            <a class="btn btn-outline-success" routerLink="login">Login</a>
-            <a class="btn btn-outline-success" routerLink="register">Register</a>
+            <a class="btn btn-outline-success" routerLink="login" *ngIf="!loggedIn">Login</a>
+            <a class="btn btn-outline-success" href="#" (click)="logout($event)" *ngIf="loggedIn">Logout</a>
+            <a class="btn btn-outline-success" routerLink="register" *ngIf="!loggedIn">Register</a>
         </div>
       </form>
     </div>
