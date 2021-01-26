@@ -4,6 +4,8 @@
 # Introduction
 This is a full-stack web project built using Laravel on the backend and Angularjs on the frontend. This is a simple project built to show my angularjs and laravel learning.
 
+This project uses Laravel on the backend to provide REST APIs. It uses JWT for authentication. The frontend uses Angularjs. Users can register with their email addresses then login to store validated IP addresses. Users have the functionality of editing their stored IP addresses and the backend keeps an audit log of the logins, additions and edits of the users. Notifications are provided by ng-snotify.
+
 # Project Setup
 Below are the steps to run the project in local environment.
 ## Project Stack
