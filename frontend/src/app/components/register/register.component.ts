@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { SnotifyService } from 'ng-snotify';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,10 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private http:HttpClient,
-    private router: Router) {
+    private router: Router,
+    private notify:SnotifyService
+    ) {
+      // notify.error('hello');
     }
 
   onSubmit() {
@@ -36,7 +40,28 @@ export class RegisterComponent implements OnInit {
   }
 
   handleResponse(data){
-    this.router.navigateByUrl('/login');
+    // this.router.navigateByUrl('/login');
+    let _router = this.router;
+    this.form = {
+      name: null,
+      email: null,
+      password: null,
+      password_confirmation: null
+    };
+    this.error = {
+      name: null,
+      email: null,
+      password: null,
+      password_confirmation: null
+    };
+    this.notify.confirm('Done! You are registered. Login to continue', {
+      buttons:[
+        {
+          text:'Okay', 
+          action:toaster => {_router.navigateByUrl('/login'),this.notify.remove(toaster.id)}
+        },
+      ]
+    });
   }
 
   handleError(error) {

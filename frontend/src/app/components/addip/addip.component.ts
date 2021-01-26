@@ -61,8 +61,7 @@ export class AddipComponent implements OnInit {
           action:toaster => {_router.navigateByUrl('/dashboard'),this.notify.remove(toaster.id)}
         },
       ]
-    })
-    
+    });
   }
 
   handleError(error){
