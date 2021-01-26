@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { SnotifyService } from 'ng-snotify';
 import { TokenService } from 'src/app/Services/token.service';
 
 @Component({
@@ -22,8 +23,11 @@ export class EditipComponent implements OnInit {
   constructor(
     private route:ActivatedRoute,
     private http:HttpClient,
-    private tokenService:TokenService
-  ) { }
+    private tokenService:TokenService,
+    private notify:SnotifyService
+  ) { 
+    // notify.error('hello');
+  }
 
   ngOnInit(): void {
     this.token = this.tokenService.get();
@@ -45,7 +49,6 @@ export class EditipComponent implements OnInit {
   handleDataResponse(data){
     // console.log(data[0][0]);
     this.form = data[0][0];
-    console.log(this.form);
   }
   handleDataError(error){
     console.log(error);
@@ -62,15 +65,30 @@ export class EditipComponent implements OnInit {
         "Authorization": 'Bearer '+this.token
       }
     }).subscribe(
-      data => console.log(data),
+      data => this.handleSubmitResponse(data),
       error => console.log(error)
     );
   }
   handleSubmitResponse(data){
-    console.log(data);
+    this.notify.confirm('Done! Your IP has been edited', {
+      // buttons:[
+      //   {
+      //     text:'Okay', 
+      //     // action:toaster => {_router.navigateByUrl('/login'),this.notify.remove(toaster.id)}
+      //   },
+      // ]
+    });
   }
   handleSubmitError(error){
-    console.log(error);
+    // console.log(error);
+    this.notify.error('Done! Your IP has been edited', {
+      // buttons:[
+      //   {
+      //     text:'Okay', 
+      //     // action:toaster => {_router.navigateByUrl('/login'),this.notify.remove(toaster.id)}
+      //   },
+      // ]
+    });
   }
 
 }

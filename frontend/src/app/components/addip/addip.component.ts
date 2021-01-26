@@ -54,6 +54,16 @@ export class AddipComponent implements OnInit {
   }
   handleResponse(data){
     let _router = this.router;
+    this.form = {
+      label: null,
+      ip: null,
+      comment:null,
+      user_id:null,
+      timestamp:null
+    };
+    this.error = {
+      ip:null
+    };
     this.notify.confirm('Done! Your IP Address has been added', {
       buttons:[
         {
