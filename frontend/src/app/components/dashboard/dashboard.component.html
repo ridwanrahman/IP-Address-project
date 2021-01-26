@@ -9,22 +9,26 @@
                     Add an ip address by accessing the button below.
                 </div>
             </div>
-            <div class="mt-4 offset-5">
+            <div class="mt-3 offset-5">
                 <a class="btn btn-outline-secondary" href="add-ip">Add new IP</a>
             </div>
         </div>
     </div>
-    <div *ngIf="ipData.length">
+    
+    <div *ngIf="ipData.length>0">
         <div class="mt-4 col-8 offset-2 divItem">
             These are your currently saved IP addresses:
-                <ul class="list-group ulItems">
-                    <li 
-                        class="list-group-item" 
-                        *ngFor="let ip of ipData">id: {{ip.id}} IP: {{ip.ip}} Label: {{ip.label}} Comment: {{ip.comment}}
-                        <a class="edit-button" [routerLink]="['/editip', ip.id]">Edit</a>
-                    </li>
-                  </ul>
-            </div>
+            <ul class="list-group ulItems">
+                <li 
+                    class="list-group-item" 
+                    *ngFor="let ip of ipData">id: {{ip.id}} IP: {{ip.ip}} Label: {{ip.label}} Comment: {{ip.comment}}
+                    <a class="edit-button" [routerLink]="['/editip', ip.id]">Edit</a>
+                </li>
+            </ul>
+        </div>
+        <div class="mt-3 offset-5">
+            <a class="btn btn-outline-secondary" href="add-ip">Add new IP</a>
+        </div>
     </div>
 
     <div>

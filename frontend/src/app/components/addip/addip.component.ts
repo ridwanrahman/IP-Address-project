@@ -47,8 +47,11 @@ export class AddipComponent implements OnInit {
   // }
 
   onSubmit() {
-    console.log("herere");
-    console.log(this.form);
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
+    this.form.timestamp = dateTime;
     this.form.user_id = this.userhandler.getUserId();
     this.http.post('http://127.0.0.1:8000/api/addip',this.form,{
       headers: {

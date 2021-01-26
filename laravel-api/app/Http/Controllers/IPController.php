@@ -31,11 +31,10 @@ class IPController extends Controller
             'ip' => 'required|ip'
         ]))
         {
-            error_log("ip address is fine");
+            // error_log("ip address is fine");
         }
         if($user_id?User::find($user_id):User::all())
         {
-            error_log("user with this id exists");
             $ip = new Address();
             $ip->label = $request->label;
             $ip->ip = $request->ip;
@@ -51,7 +50,6 @@ class IPController extends Controller
             $audit->text = "$user_name saved an ip adress of value: $ip->ip at $request->timestamp";
             $audit->user_id = $request->user_id;
             $result = $audit->save();
-
             return response()->json(['message' => 'Ip address saved'])
                 ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
         }
@@ -110,10 +108,9 @@ class IPController extends Controller
         $user_name = JWTAuth::authenticate()->name;
         $audit = new Audit();
         $ip = $request->ip;
-        $audit->text = "$user_name edited an ip adress of value: $ip at $request->timestamp";
+        $audit->text = "$user_name edited an ip: $ip with label: $request->label at $request->timestamp";
         $audit->user_id = $request->user_id;
         $result = $audit->save();
-
         return response()->json(['message' => 'saved'])
                 ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
     }
@@ -124,7 +121,6 @@ class IPController extends Controller
         JWTAuth::setToken($header);
         $user_id = JWTAuth::authenticate()->id;
         $userAudits = Audit::where('user_id',$user_id)->orderBy('id', 'DESC')->get();
-        error_log($userAudits);
         return response()->json([$userAudits])
                 ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
     }

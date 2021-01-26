@@ -52,8 +52,11 @@ export class EditipComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("hererererere");
-    console.log(this.form);
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
+    this.form.timestamp = dateTime;
     this.http.post('http://127.0.0.1:8000/api/editIPRecordById',this.form, {
       headers:{
         "Authorization": 'Bearer '+this.token
