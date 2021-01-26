@@ -1,6 +1,20 @@
 <div>
     Welcome {{userName}}
-    <div>
+    <div *ngIf="ipData.length==0">
+        <div class="mt-4 col-8 offset-2 divItem">
+            <div class="card">
+                <div class="card-body">
+                    Currently you do not have any IP addresses saved.
+                    <br>
+                    Add an ip address by accessing the button below.
+                </div>
+            </div>
+            <div class="mt-4 offset-5">
+                <a class="btn btn-outline-secondary" href="add-ip">Add new IP</a>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="ipData.length">
         <div class="mt-4 col-8 offset-2 divItem">
             These are your currently saved IP addresses:
                 <ul class="list-group ulItems">
@@ -11,7 +25,6 @@
                     </li>
                   </ul>
             </div>
-            <a href="add-ip">Add new IP</a>
     </div>
 
     <div>
