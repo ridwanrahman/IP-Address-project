@@ -30,3 +30,10 @@ This project is built using the following technologies:
 - Enter the frontend folder.
 - Run the comman `$ npm install` to install all the dependencies.
 - Run the command `$ ng serve` to run the project in 4200 port.
+
+# Screenshots of application
+- Homepage ![](https://raw.githubusercontent.com/ridwanrahman/ridwanrahman.github.io/master/images/ip-project1.png)
+- Login page ![](https://raw.githubusercontent.com/ridwanrahman/ridwanrahman.github.io/master/images/ip-project2.png)
+- Dashboard ![](https://raw.githubusercontent.com/ridwanrahman/ridwanrahman.github.io/master/images/ip-project3.png)
+- Add new ip page ![](https://raw.githubusercontent.com/ridwanrahman/ridwanrahman.github.io/master/images/ip-project5.png)
+- Edit ip page ![](https://raw.githubusercontent.com/ridwanrahman/ridwanrahman.github.io/master/images/ip-project6.png)
