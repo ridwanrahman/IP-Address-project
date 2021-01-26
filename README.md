@@ -24,9 +24,9 @@ This project is built using the following technologies:
 - Generate an app encryption key by running `$ php artisan key:generate`.
 - Create an empty database on mysql and write the database name, username and password in the .env file.
 - Run the migration command `$ php artisan migrate` to create the tables in the database.
-- Run the project in `$ php artisan serve`.
+- Run the project by `$ php artisan serve` in port 8000.
 
 ## Frontend setup
 - Enter the frontend folder.
 - Run the comman `$ npm install` to install all the dependencies.
-- Run the command `$ ng serve` to run the project.
+- Run the command `$ ng serve` to run the project in 4200 port.
