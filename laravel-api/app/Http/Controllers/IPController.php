@@ -100,7 +100,11 @@ class IPController extends Controller
 
     public function saveIPRecordById(Request $request)
     {
+        error_log("hope this works");
+        // $id = $request;
         
+        error_log($request);
+        // error_log("saving this data");
     }
 
     public function getAuditByUserID(Request $request)
@@ -115,7 +119,7 @@ class IPController extends Controller
                 $c->add($ud);
             }
         }
-        error_log($c);
+        // error_log($c);
         return response()->json([$c])
                 ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
     }

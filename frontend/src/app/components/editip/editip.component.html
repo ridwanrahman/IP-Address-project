@@ -1,1 +1,54 @@
-<p>editip works!</p>
+<div>
+    <div class="mt-4 col-8 offset-2">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-body">
+
+                    <form #editForm=ngForm (ngSubmit)="onSubmit()">
+                        <div class="mb-3">
+                            <label for="label" class="form-label">Label</label>
+                            <input type="text" 
+                                      class="form-control" 
+                                      id="label" 
+                                      name="label" 
+                                      placeholder="Label" 
+                                      [(ngModel)]="form.label"
+                            >
+                          </div>
+
+                          <div class="mb-3">
+                            <label for="label" class="form-label">IP Address</label>
+                            <input type="text" 
+                                      class="form-control" 
+                                      id="ip" 
+                                      name="ip" 
+                                      placeholder="ip" 
+                                      [(ngModel)]="form.ip"
+                                      disabled
+                            >
+                          </div>
+
+                          <div class="mb-3">
+                            <label for="label" class="form-label">Comment</label>
+                            <input type="textarea" 
+                                      class="form-control" 
+                                      id="comment" 
+                                      name="comment" 
+                                      placeholder="Comment" 
+                                      [(ngModel)]="form.comment"
+                            >
+                          </div>
+
+                        <button type="submit" 
+                            class="btn btn-primary"
+                            [disabled]="!editForm.valid"
+                            >
+                            Add Changes
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

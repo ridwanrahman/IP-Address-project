@@ -40,6 +40,7 @@ Route::group([
     Route::post('addip', 'IPController@addIP');
     Route::get('getAllIP/{id}', 'IPController@getAllIPByUser');
     Route::get('getIPRecordByID/{id}', 'IPController@getIPRecordByID');
+    
     Route::post('saveIPRecordById', 'IPController@saveIPRecordById');
 
     Route::get('getUserAudits', 'IPController@getAuditByUserID');

@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit {
   }
 
   handleAuditResponse(data) {
-    console.log(data);
+    // console.log(data);
     this.auditData = data[0];
   }
   handleAuditError(error) {
