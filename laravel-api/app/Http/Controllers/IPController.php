@@ -98,13 +98,24 @@ class IPController extends Controller
         }
     }
 
-    public function saveIPRecordById(Request $request)
+    public function editIPRecordById(Request $request)
     {
-        error_log("hope this works");
-        // $id = $request;
-        
-        error_log($request);
-        // error_log("saving this data");
+        $specific_record = Address::where('id',$request->id)->get();
+        $specific_record[0]->label = $request->label;
+        $specific_record[0]->save();
+
+        // Save audit
+        $header = $request->bearerToken();;
+        JWTAuth::setToken($header);
+        $user_name = JWTAuth::authenticate()->name;
+        $audit = new Audit();
+        $ip = $request->ip;
+        $audit->text = "$user_name edited an ip adress of value: $ip at $request->timestamp";
+        $audit->user_id = $request->user_id;
+        $result = $audit->save();
+
+        return response()->json(['message' => 'saved'])
+                ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
     }
 
     public function getAuditByUserID(Request $request)
@@ -119,7 +130,6 @@ class IPController extends Controller
                 $c->add($ud);
             }
         }
-        // error_log($c);
         return response()->json([$c])
                 ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
     }

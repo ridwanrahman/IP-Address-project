@@ -24,12 +24,12 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("dashboard");
+    // console.log("dashboard");
     this.userName = this.userHandler.getUserName();
     this.userID = this.userHandler.getUserId();
     this.userEmail = this.userHandler.getUserEmail();
     this.token = this.tokenService.get();
-    console.log("dashboard ends");
+    // console.log("dashboard ends");
     this.getIPData();
     this.getAuditData();
   }

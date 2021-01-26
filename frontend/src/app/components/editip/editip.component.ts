@@ -15,7 +15,8 @@ export class EditipComponent implements OnInit {
   public form = {
     label:null,
     ip:null,
-    comment:null
+    comment:null,
+    timestamp:null
   };
 
   constructor(
@@ -53,7 +54,7 @@ export class EditipComponent implements OnInit {
   onSubmit() {
     console.log("hererererere");
     console.log(this.form);
-    this.http.post('http://127.0.0.1:8000/api/saveIPRecordById',this.form, {
+    this.http.post('http://127.0.0.1:8000/api/editIPRecordById',this.form, {
       headers:{
         "Authorization": 'Bearer '+this.token
       }
