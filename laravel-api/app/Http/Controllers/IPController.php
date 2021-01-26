@@ -123,16 +123,9 @@ class IPController extends Controller
         $header = $request->bearerToken();;
         JWTAuth::setToken($header);
         $user_id = JWTAuth::authenticate()->id;
-        $c = collect();
-        $userAudits = Audit::all();
-        foreach($userAudits as $ud) {
-            if($ud->user_id == $user_id) {
-                $c->add($ud);
-            }
-        }
-        return response()->json([$c])
+        $userAudits = Audit::where('user_id',$user_id)->orderBy('id', 'DESC')->get();
+        error_log($userAudits);
+        return response()->json([$userAudits])
                 ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
     }
-
-
 }

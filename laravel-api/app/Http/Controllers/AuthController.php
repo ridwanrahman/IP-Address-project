@@ -45,11 +45,9 @@ class AuthController extends Controller
         JWTAuth::setToken($token);
         $user_name = JWTAuth::authenticate()->name;
         $user_id = JWTAuth::authenticate()->id;
-        error_log($user_name);
         $audit = new Audit();
-        $ldate = date('Y-m-d H:i:s');
-        error_log($ldate);
-        $audit->text = "$user_name has logged in at $ldate";
+        $timestamp = $request->all()['timestamp'];
+        $audit->text = "$user_name has logged in at $timestamp";
         $audit->user_id = $user_id;
         $result = $audit->save();
 

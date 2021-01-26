@@ -14,7 +14,8 @@ export class LoginComponent implements OnInit {
 
   public form = {
     email: null,
-    password: null
+    password: null,
+    timestamp:null
   };
 
   public error = null;
@@ -28,6 +29,11 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     console.log("something");
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
+    this.form.timestamp = dateTime;
     this.http.post('http://127.0.0.1:8000/api/auth/login',this.form).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
