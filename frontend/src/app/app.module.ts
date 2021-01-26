@@ -12,6 +12,7 @@ import { AddipComponent } from './components/addip/addip.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditipComponent } from './components/editip/editip.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 
 @NgModule({
   declarations: [
@@ -29,9 +30,13 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    SnotifyModule
   ],
-  providers: [],
+  providers: [
+    { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
+    SnotifyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

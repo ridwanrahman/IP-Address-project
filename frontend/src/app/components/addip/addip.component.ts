@@ -1,15 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SnotifyService } from 'ng-snotify';
 import { TokenService } from 'src/app/Services/token.service';
 import { UserHandlerService } from 'src/app/Services/user-handler.service';
-
-import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-addip',
   templateUrl: './addip.component.html',
   styleUrls: ['./addip.component.css'],
-  providers: [NgbModalConfig, NgbModal]
 })
 export class AddipComponent implements OnInit {
 
@@ -31,20 +30,11 @@ export class AddipComponent implements OnInit {
     private http:HttpClient,
     private userhandler:UserHandlerService,
     private tokenService:TokenService,
-    private modalService: NgbModal,
-    config: NgbModalConfig
-  ) {
-    config.backdrop = 'static';
-    config.keyboard = false;
-   }
-
-  // open(content) {
-  //   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-  //     this.closeResult = `Closed with: ${result}`;
-  //   }, (reason) => {
-  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  //   });
-  // }
+    private notify:SnotifyService,
+    private router:Router
+  ) { 
+    // notify.error('hello');
+  }
 
   onSubmit() {
     var today = new Date();
@@ -62,15 +52,19 @@ export class AddipComponent implements OnInit {
       error => this.handleError(error)
     );
   }
-  open(content) {
-    this.modalService.open(content);
-  }
   handleResponse(data){
-    console.log(data);
-    // var content="asdfasfasfasf";
-    // this.open(content);
+    let _router = this.router;
+    this.notify.confirm('Done! Your IP Address has been added', {
+      buttons:[
+        {
+          text:'Okay', 
+          action:toaster => {_router.navigateByUrl('/dashboard'),this.notify.remove(toaster.id)}
+        },
+      ]
+    })
     
   }
+
   handleError(error){
     console.log(error.error.errors);
     this.error.ip = error.error.errors.ip[0];
