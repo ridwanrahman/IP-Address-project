@@ -1,10 +1,5 @@
 # IP Address Project
 
-**Table of Contents**
-
-[TOCM]
-
-[TOC]
 
 # Introduction
 This is a full-stack web project built using Laravel on the backend and Angularjs on the frontend. This is a simple project built to show my angularjs and laravel learning.
