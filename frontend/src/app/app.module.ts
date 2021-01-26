@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddipComponent } from './components/addip/addip.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditipComponent } from './components/editip/editip.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { EditipComponent } from './components/editip/editip.component';
     RegisterComponent,
     DashboardComponent,
     AddipComponent,
-    EditipComponent
+    EditipComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
