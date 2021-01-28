@@ -22,17 +22,13 @@ class IPController extends Controller
     //
 
     //Add specific user's ip address
-    public function addIP(Request $request)
+    public function addIPByUser(Request $request)
     {
-        error_log("addign ip");
         $user_id = $request->user_id;
-
         if($ip_validation = $request->validate([
             'ip' => 'required|ip'
         ]))
-        {
-            // error_log("ip address is fine");
-        }
+        { }
         if($user_id?User::find($user_id):User::all())
         {
             $ip = new Address();
@@ -41,21 +37,19 @@ class IPController extends Controller
             $ip->comment = $request->comment;
             $ip->user_id = $request->user_id;
             $result = $ip->save();
-            
+
             // Save audit
-            $header = $request->bearerToken();;
-            JWTAuth::setToken($header);
-            $user_name = JWTAuth::authenticate()->name;
-            $audit = new Audit();
-            $audit->text = "$user_name saved an ip adress of value: $ip->ip at $request->timestamp";
-            $audit->user_id = $request->user_id;
-            $result = $audit->save();
-            return response()->json(['message' => 'Ip address saved'])
-                ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
+            $auditSaveResult = $this->saveAudit($request, $ip, "save");
+
+            if($result == 1 and $auditSaveResult==1)
+                return response()->json(['message' => 'Ip address saved'])
+                    ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
+            else
+                return response()->json(['message' => 'ERROR.Could not save.'])
+                    ->setStatusCode(Response::HTTP_NOT_FOUND, Response::$statusTexts[Response::HTTP_NOT_FOUND]);    
         }
         else
         {
-            error_log("ERROR");
             return response()->json(['message' => 'ERROR.'])
                 ->setStatusCode(Response::HTTP_NOT_FOUND, Response::$statusTexts[Response::HTTP_NOT_FOUND]);
         }
@@ -98,30 +92,37 @@ class IPController extends Controller
 
     public function editIPRecordById(Request $request)
     {
+        $ip = $request->ip;
         $specific_record = Address::where('id',$request->id)->get();
         $specific_record[0]->label = $request->label;
-        $specific_record[0]->save();
-
+        $result = $specific_record[0]->save();
+        
         // Save audit
-        $header = $request->bearerToken();;
+        $auditSaveResult = $this->saveAudit($request, $ip, "save");
+
+        if($result==1 and $auditSaveResult==1)
+            return response()->json(['message' => 'saved'])
+                ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
+        else
+            return response()->json(['message' => 'ERROR.Could not edit.'])
+                ->setStatusCode(Response::HTTP_NOT_FOUND, Response::$statusTexts[Response::HTTP_NOT_FOUND]);    
+    }
+
+    public function saveAudit(Request $request, $ip, $type)
+    {
+        $header = $request->bearerToken();
         JWTAuth::setToken($header);
         $user_name = JWTAuth::authenticate()->name;
         $audit = new Audit();
-        $ip = $request->ip;
-        $audit->text = "$user_name edited an ip: $ip with label: $request->label at $request->timestamp";
+        if($type=="save")
+            $audit->text = "$user_name saved an ip adress of value: $ip->ip at $request->timestamp";
+        else
+            $audit->text = "$user_name edited an ip: $ip with label: $request->label at $request->timestamp";
         $audit->user_id = $request->user_id;
         $result = $audit->save();
-        return response()->json(['message' => 'saved'])
-                ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
-    }
-
-    public function getAuditByUserID(Request $request)
-    {
-        $header = $request->bearerToken();;
-        JWTAuth::setToken($header);
-        $user_id = JWTAuth::authenticate()->id;
-        $userAudits = Audit::where('user_id',$user_id)->orderBy('id', 'DESC')->get();
-        return response()->json([$userAudits])
-                ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
+        if($result == 1) 
+            return 1;
+        else 
+            return 0;
     }
 }

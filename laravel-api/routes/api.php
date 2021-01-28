@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IPController;
+use App\Http\Controllers\AuditController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,18 +32,9 @@ Route::group([
     'middleware' => 'api',
     'namespace' => 'App\Http\Controllers',
 ], function($router) {
-    // Route::resource('ip', 'IPController');
-    Route::get('open', 'IPController@open');
-    Route::get('close', 'IPController@close');
-    // Route::get('users', 'IPController@getUsers');
-    Route::get('users/{id?}', 'IPController@getUsers');
-
-    Route::post('addip', 'IPController@addIP');
+    Route::post('addip', 'IPController@addIPByUser');
     Route::get('getAllIP/{id}', 'IPController@getAllIPByUser');
     Route::get('getIPRecordByID/{id}', 'IPController@getIPRecordByID');
-    
     Route::post('editIPRecordById', 'IPController@editIPRecordById');
-
-    Route::get('getUserAudits', 'IPController@getAuditByUserID');
-
+    Route::get('getUserAudits', 'AuditController@getAuditByUserID');
 });
